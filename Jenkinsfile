@@ -2,26 +2,31 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
-                checkout scm
+                dir('/home/ubuntu/Jenkins_Solution_frontend') {
+                    checkout scm
+                }
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh '''
-                    npm ci
-                '''
+                dir('/home/ubuntu/Jenkins_Solution_frontend') {
+                    sh '''
+                        npm ci
+                    '''
+                }
             }
         }
 
         stage('Test') {
             steps {
-                sh '''
-                    node --check app.js
-                '''
+                dir('/home/ubuntu/Jenkins_Solution_frontend') {
+                    sh '''
+                        node --check app.js
+                    '''
+                }
             }
         }
 
